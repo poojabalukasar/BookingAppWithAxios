@@ -23,7 +23,7 @@
 // });
 
 const form = document.getElementById("regiForm");
-
+const userList = document.getElementById("user");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const name = document.getElementById("name").value;
@@ -31,7 +31,6 @@ form.addEventListener("submit", (e) => {
   const phone = document.getElementById("ph").value;
   const time = document.getElementById("time").value;
   const tm = document.getElementById("tm").value;
-  const userList = document.getElementById("user");
 
   //user OBJECT
   const user = {
@@ -56,4 +55,44 @@ form.addEventListener("submit", (e) => {
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   }
+
+  function getUsers() {
+    axios
+      .get(
+        "https://crudcrud.com/api/6794f1d7e8a847b6b6b62038138cb075/appointmentData"
+      )
+      .then((res) => displayUserList(JSON.parse(res.data)))
+      .catch((error) => console.log(error));
+  }
+
+  function displayUserList(user) {
+    const li = document.createElement("li");
+    li.textContent = `Username: ${user.firstName}, Email: ${user.email}, Phone : ${user.phone}`;
+    userList.appendChild(li);
+  }
+
+  displayUserList(user);
+});
+
+function displayUserList(user) {
+  const li = document.createElement("li");
+  li.textContent = `Username: ${user.firstName}, Email: ${user.email}, Phone : ${user.phone}`;
+  userList.appendChild(li);
+}
+
+displayUserList(user);
+
+window.addEventListener("DOMContentLoaded", () => {
+  axios
+    .get(
+      "https://crudcrud.com/api/6794f1d7e8a847b6b6b62038138cb075/appointmentData"
+    )
+    .then((res) => {
+      console.log(res);
+
+      for (let i = 0; i < res.data.length; i++) {
+        displayUserList(res.data[i]);
+      }
+    })
+    .catch((error) => console.log(error));
 });
