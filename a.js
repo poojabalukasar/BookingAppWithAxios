@@ -45,7 +45,7 @@ function displayUser(user) {
   const phoneDiv = document.createElement("div");
   phoneDiv.textContent = `Phone: ${user.phone}`;
 
-  // Save button for editing
+  // Save button for editing user Info
   const saveButton = document.createElement("button");
   saveButton.textContent = "Save";
   saveButton.style.display = "none"; // Initially hide the button
@@ -73,7 +73,7 @@ function displayUser(user) {
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "Delete";
   deleteButton.addEventListener("click", () => {
-    // Delete the user here
+    // Delete the user
     deleteUser(user);
     userList.removeChild(li);
   });
